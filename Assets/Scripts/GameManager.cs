@@ -2,15 +2,16 @@ using UnityEngine;
 
 public class GameManger : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public static GameManger instance;
+  public Player player;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        if (instance == null)
+        {
+            instance = this;
+           
+        }
+      
     }
 }
