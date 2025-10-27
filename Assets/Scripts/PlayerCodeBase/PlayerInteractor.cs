@@ -26,7 +26,9 @@ public class PlayerInteractor : MonoBehaviour
     }
     void OnInteract(InputAction.CallbackContext context)
     {
-       Debug.Log("Interact action performed");
+        Debug.Log("Interact action performed");
+
+
         if (currentInteractable != null)
         {
             currentInteractable.Interact();
@@ -35,10 +37,10 @@ public class PlayerInteractor : MonoBehaviour
     private void OnEnable()
     {
         interactAction.action.Enable();
-        interactAction.action.performed += OnInteract;
+        interactAction.action.started += OnInteract;
     }
     private void OnDisable()
     {
-        interactAction.action.performed -= OnInteract;
+        interactAction.action.started -= OnInteract;
     }
 }
