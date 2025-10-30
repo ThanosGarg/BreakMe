@@ -41,7 +41,7 @@ public class AttackingSystem : MonoBehaviour
         while (isAttacking)
         {
             // Read current value each tick so player can change direction while holding
-            Vector2 inputDir = -attackAction.action.ReadValue<Vector2>();
+            Vector2 inputDir = attackAction.action.ReadValue<Vector2>();
             if (inputDir.sqrMagnitude <= 0f)
             {
                 // if stick returned to zero, keep last known direction

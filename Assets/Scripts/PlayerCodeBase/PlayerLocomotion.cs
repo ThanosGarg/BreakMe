@@ -26,7 +26,6 @@ public class PlayerLocomotion : MonoBehaviour
 
 	CharacterController controller;
 	float currentSpeed;
-	float rotationVelocity;
 	float verticalVelocity;
 
 	// velocity used by SmoothDamp for camera
@@ -139,10 +138,8 @@ public class PlayerLocomotion : MonoBehaviour
 
 			moveDir.Normalize();
 
-			// smooth rotation toward move direction
-			float targetAngle = Mathf.Atan2(moveDir.x, moveDir.z) * Mathf.Rad2Deg;
-			float smoothedAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref rotationVelocity, rotationSmoothTime);
-			transform.rotation = Quaternion.Euler(0f, smoothedAngle, 0f);
+			// DO NOT rotate the player; only move in the chosen direction.
+			// (Removed SmoothDampAngle + transform.rotation)
 
 			// horizontal move vector
 			Vector3 horizontalMove = moveDir * currentSpeed;
