@@ -1,16 +1,21 @@
+using System;
 using UnityEngine;
+using UnityEngine.AI;
 
-public class Enemiy : MonoBehaviour
+[RequireComponent(typeof(NavMeshAgent))]
+
+public class Enemy : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public Player player;
+    public NavMeshAgent agent;
     void Start()
     {
-        
+        player= GameManger.instance.player;
+        agent= GetComponent<NavMeshAgent>();
     }
 
-    // Update is called once per frame
-    void Update()
+void Update()
     {
-        
+        agent.SetDestination(player.transform.position);
     }
 }
