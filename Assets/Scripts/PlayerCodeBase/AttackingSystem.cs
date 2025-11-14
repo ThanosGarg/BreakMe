@@ -51,43 +51,16 @@ public class AttackingSystem : MonoBehaviour
             {
                 lastInputDir = inputDir;
             }
-
-            SpawnBullet(inputDir);
+            Bullet bullet = Instantiate(BulletPrefab, transform.position, Quaternion.identity).GetComponent<Bullet>();
+            bullet.SpawnBullet(inputDir, bulletSpeed, bulletLifetime);
+            //  SpawnBullet(inputDir);
             yield return new WaitForSeconds(fireInterval);
         }
         attackCoroutine = null;
     }
 
     // Helper to spawn a bullet using same mapping and rb handling as before
-    void SpawnBullet(Vector2 inputDir)
-    {
-        if (inputDir.sqrMagnitude <= 0f) return;
 
-        Vector3 dir3 = (transform.right * inputDir.x + transform.forward * inputDir.y);
-        Vector3 dir3Norm = dir3.normalized;
-        Vector3 spawnPos = transform.position + dir3Norm * 0.5f;
-        GameObject bullet = Instantiate(BulletPrefab, spawnPos, Quaternion.identity);
-
-        var rb2d = bullet.GetComponent<Rigidbody2D>();
-        if (rb2d != null)
-        {
-            Vector2 dir2 = (Vector2)(transform.right * inputDir.x + transform.up * inputDir.y);
-            rb2d.linearVelocity = dir2.normalized * bulletSpeed;
-            Destroy(bullet, bulletLifetime);
-            return;
-        }
-
-        var rb = bullet.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            rb.linearVelocity = dir3Norm * bulletSpeed;
-            Destroy(bullet, bulletLifetime);
-            return;
-        }
-
-        bullet.transform.position += dir3Norm * 0.01f;
-        Destroy(bullet, bulletLifetime);
-    }
 
     private void OnEnable()
     {
